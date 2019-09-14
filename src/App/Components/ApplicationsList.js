@@ -1,46 +1,88 @@
-import React from 'react'
+import React, {Component} from 'react'
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
+import {connect} from 'react-redux'
+import {fetchApplications} from "../Redux/Actions/ApplicationActions";
+import {setOrderBy, resetFilterBy, resetOrderBy} from "../Redux/Actions/FilterActions";
+import TableRow from "./Layout/TableRow";
+import TableHeader from "./Layout/TableHeader";
+import Button from "react-bootstrap/Button";
+import {isEmpty} from "../../Lib/Utils";
+import _orderBy from 'lodash/orderBy'
 
-function ApplicationsList() {
-    return (
-        <>
-            <Row>
-                <Col md={12}>
-                    <Table striped bordered hover>
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td colSpan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
-                        </tbody>
-                    </Table>
-                </Col>
-            </Row>
-        </>
-    )
+const orderByFields = {
+    name: 'name',
+    email: 'email',
+    age: 'birth_date',
+    years_of_experience: 'years_of_experience',
+    application_date: 'application_date',
+
+};
+
+const filterByFields = {
+    position: 'position_applied',
+    status: 'status'
+};
+
+class ApplicationsList extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        this.props.fetchApplications()
+    }
+
+    resetClick = () => {
+        this.props.resetOrderBy();
+        this.props.resetFilterBy();
+    };
+
+
+    render() {
+
+        const {applications} = this.props.applications;
+        const {orderBy, filterBy} = this.props.filters;
+
+        return (
+            <>
+                {(!isEmpty(orderBy) || !isEmpty(filterBy)) &&
+                <Row>
+                    <Col md={12}>
+                        <Button onClick={this.resetClick} className='float-right my-2'>
+                            Reset
+                        </Button>
+                    </Col>
+                </Row>}
+                <Row>
+                    <Col md={12}>
+                        <Table responsive>
+                            <TableHeader
+                                selectedOptions={orderBy}
+                                orderBy={(orderParams) => this.props.setOrderBy(orderParams)}
+                                orderByFields={orderByFields}
+                                filterByFields={filterByFields}/>
+                            <tbody>
+                            {_orderBy(applications, Object.keys(orderBy), Object.keys(orderBy).map((key) => orderBy[key])).map((application) =>
+                                <TableRow
+                                    key={application.id}
+                                    row={application}
+                                    orderByFileds={orderByFields}
+                                    filterByFields={filterByFields}/>)}
+                            </tbody>
+                        </Table>
+                    </Col>
+                </Row>
+            </>
+        )
+    }
 }
 
-export default ApplicationsList
+const mapStateToProps = ({applications, filters}) => {
+    return {applications, filters}
+};
+
+
+export default connect(mapStateToProps, {fetchApplications, setOrderBy, resetFilterBy, resetOrderBy})(ApplicationsList)

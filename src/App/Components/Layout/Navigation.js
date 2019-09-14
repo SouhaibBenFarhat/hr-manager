@@ -9,7 +9,7 @@ import logo from '../../../Assets/personio_logo.svg'
 function Navigation() {
     return (
         <Navbar bg="light" expand="lg" className='mb-4'>
-            <Navbar.Brand href="javascript:void(0)">
+            <Navbar.Brand href="">
                 <img src={logo} alt='brand' style={{width: 160}}/>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>

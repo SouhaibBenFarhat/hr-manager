@@ -1,9 +1,9 @@
 import React from 'react'
 import {dateToAge} from "../../../Lib/Utils";
-import StatusLabel from "../StatusLabel";
 import Button from 'react-bootstrap/Button'
+import {applicationStatus} from "../../../Lib/Keys";
 
-function TableRow({row}) {
+function TableRow({row, setFilteringParams}) {
     return (
         <tr>
             <td className='text-nowrap'>
@@ -24,10 +24,16 @@ function TableRow({row}) {
                 {row.application_date}
             </td>
             <td className='text-nowrap'>
-                {row.position_applied}
+                <Button variant="outline-secondary"
+                        onClick={() => setFilteringParams({position_applied: row.position_applied})}>
+                    {row.position_applied}
+                </Button>
             </td>
             <td className='text-nowrap'>
-                <StatusLabel status={row.status}/>
+                <Button variant={applicationStatus[row.status]}
+                        onClick={() => setFilteringParams({status: row.status})}>
+                    {row.status}
+                </Button>
             </td>
         </tr>
     )

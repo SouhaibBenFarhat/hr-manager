@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom'
 import * as queryString from 'query-string';
 import {setFilteringParams} from "../Redux/Actions/FilterActions";
-import _ from 'lodash';
+import {removeKeysWithFalsyValues} from "../../Lib/Utils";
 
 class UrlWatcher extends Component {
 
@@ -13,10 +13,10 @@ class UrlWatcher extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.filters.filteringParams !== this.props.filters.filteringParams) {
+        if (prevProps.filteringParams !== this.props.filteringParams) {
             this.props.history.push({
-                search: new URLSearchParams(_.pickBy(this.props.filters.filteringParams, _.identity)).toString()
-            })
+                search: new URLSearchParams(removeKeysWithFalsyValues(this.props.filteringParams)).toString()
+            });
         }
     }
 
@@ -26,7 +26,7 @@ class UrlWatcher extends Component {
 }
 
 const mapStateToProps = ({filters}) => ({
-    filters
+    filteringParams: filters.filteringParams
 });
 
 export default withRouter(connect(mapStateToProps, {setFilteringParams})(UrlWatcher))

@@ -1,9 +1,9 @@
 import React from 'react';
 import Nav from 'react-bootstrap/Nav'
 import {startCase} from 'lodash'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faArrowUp} from '@fortawesome/free-solid-svg-icons'
-import {faArrowDown} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome/index'
+import {faArrowUp} from '@fortawesome/free-solid-svg-icons/index'
+import {faArrowDown} from '@fortawesome/free-solid-svg-icons/index'
 
 export default function TableHeader({setFilteringParams, filteringFields, selectedOptions}) {
 
@@ -15,7 +15,7 @@ export default function TableHeader({setFilteringParams, filteringFields, select
     };
 
     const isSelected = (key) => {
-        return Object.keys(selectedOptions).includes(key)
+        return Object.keys(selectedOptions).includes(key) && ['asc', 'desc'].includes(selectedOptions[key])
     };
 
     const getIcon = (key) => {

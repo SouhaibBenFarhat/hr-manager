@@ -1,10 +1,13 @@
 import moment from 'moment'
 import _ from 'lodash';
+import _orderBy from "lodash/orderBy";
 
+// Use momentJS to convert birthday to age
 export const dateToAge = (birthday) => {
     return moment().diff(birthday, 'years');
 };
 
+// looping through a json Array and return a set of options (distinct) by attribute.
 export const optionsBy = (array, attr) => {
     const options = [];
     array.forEach((element) => {
@@ -15,6 +18,7 @@ export const optionsBy = (array, attr) => {
     return options;
 };
 
+// Check if object is empty?
 export const isEmpty = (obj) => {
     if (typeof obj == 'number') return false;
     else if (typeof obj == 'string') return obj.length === 0;
@@ -24,6 +28,7 @@ export const isEmpty = (obj) => {
     else return !obj;
 };
 
+// removing  keys with falsy values from object, Falsy values are [0, '', false, null, undefined, Nan]
 export const removeKeysWithFalsyValues = (obj) => {
     return _.pickBy(obj, _.identity);
 };

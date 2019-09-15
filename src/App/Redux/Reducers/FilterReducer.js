@@ -9,8 +9,7 @@ import {removeKeysWithFalsyValues} from "../../../Lib/Utils";
 const initialState = {
     statuses: [],
     positions: [],
-    filteringParams: {},
-    searchQuery: ''
+    filteringParams: {}
 };
 
 export default function (state = initialState, action) {
@@ -18,13 +17,13 @@ export default function (state = initialState, action) {
         case SET_STATUSES: {
             return {
                 ...state,
-                statuses: [...action.statuses]
+                statuses: [...action.statuses].sort()
             }
         }
         case SET_POSITIONS: {
             return {
                 ...state,
-                positions: [...action.positions]
+                positions: [...action.positions].sort()
             };
         }
         case SET_FILTERING_PARAMS: {
@@ -36,8 +35,7 @@ export default function (state = initialState, action) {
         case RESET_FILTERING_PARAMS: {
             return {
                 ...state,
-                filteringParams: {},
-                searchQuery: ''
+                filteringParams: {}
             }
         }
         default:

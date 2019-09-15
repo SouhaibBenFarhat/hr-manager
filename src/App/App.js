@@ -1,6 +1,6 @@
 import React from 'react';
 import Navigation from './Components/Layout/Navigation'
-import ApplicationsList from './Components/ApplicationsList'
+import ApplicationsList from './Components/Applications/ApplicationsList'
 import Container from 'react-bootstrap/Container'
 import {Provider} from "react-redux";
 import store from "./Redux/Store";

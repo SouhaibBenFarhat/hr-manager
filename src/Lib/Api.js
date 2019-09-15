@@ -9,7 +9,7 @@ const errorMessage = {
         error: "Oups! The operation couldn't be completed."
     }
 };
-
+//Wrapper for sending HTTP queries
 export default class Api {
 
     static headers(contentType = 'json') {

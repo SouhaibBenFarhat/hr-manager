@@ -34,6 +34,7 @@ class Filters extends Component {
                 <Row>
                     <Col md={6}>
                         <Jumbotron>
+                            <h4>Filters</h4>
                             <Form>
                                 <Form.Group as={Row}>
                                     <Form.Label column sm={2}>
@@ -42,12 +43,11 @@ class Filters extends Component {
                                     <Col sm={10}>
                                         <Form.Control
                                             type="text"
-                                            value={searchQuery}
+                                            value={searchQuery || ''}
                                             placeholder="Search by name"
                                             onChange={this.onNameChange}/>
                                     </Col>
                                 </Form.Group>
-
                                 <Form.Group as={Row}>
                                     <Form.Label column sm={2}>
                                         Position
@@ -55,7 +55,7 @@ class Filters extends Component {
                                     <Col sm={10}>
                                         <DropdownButton
                                             onSelect={this.onPositionChange}
-                                            title={startCase(position_applied) || 'Position'}
+                                            title={startCase(positions[position_applied]) || 'Position'}
                                             variant='primary'>
                                             {positions.map((position, index) => (
                                                     <Dropdown.Item
@@ -76,7 +76,7 @@ class Filters extends Component {
                                     </Form.Label>
                                     <Col sm={10}>
                                         <DropdownButton
-                                            title={startCase(status) || 'Status'}
+                                            title={startCase(statuses[status]) || 'Status'}
                                             onSelect={this.onStatusChange}
                                             variant='primary'>
                                             {statuses.map((status, index) => (
@@ -99,7 +99,6 @@ class Filters extends Component {
             </>
         )
     }
-
 }
 
 const mapStateToProps = ({filters}) => {

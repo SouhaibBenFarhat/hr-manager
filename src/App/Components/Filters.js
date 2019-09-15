@@ -16,7 +16,20 @@ class Filters extends Component {
         this.props.setFilteringParams({searchQuery: event.target.value})
     };
 
+    onPositionChange = (position) => {
+        this.props.setFilteringParams({position_applied: position})
+
+    };
+
+    onStatusChange = (status) => {
+        this.props.setFilteringParams({status: status})
+    };
+
     render() {
+        const {searchQuery} = this.props.filters.filteringParams;
+        const {position_applied} = this.props.filters.filteringParams;
+        const {status} = this.props.filters.filteringParams;
+
         return (
             <>
                 <Row>
@@ -30,6 +43,7 @@ class Filters extends Component {
                                     <Col sm={10}>
                                         <Form.Control
                                             type="text"
+                                            value={searchQuery}
                                             placeholder="Search by name"
                                             onChange={this.onNameChange}/>
                                     </Col>
@@ -41,19 +55,20 @@ class Filters extends Component {
                                     </Form.Label>
                                     <Col sm={10}>
                                         <DropdownButton
-                                            title='Position'
+                                            onSelect={this.onPositionChange}
+                                            title={startCase(position_applied) || 'Position'}
                                             variant='primary'>
                                             {this.props.filters.positions.map((position, index) => {
                                                 return (
                                                     <Dropdown.Item
-                                                        key={position}
-                                                        eventKey={index}>
+                                                        key={index}
+                                                        eventKey={position}>
                                                         {position}
                                                     </Dropdown.Item>
                                                 )
                                             })}
                                             <Dropdown.Divider/>
-                                            <Dropdown.Item eventKey="4">All</Dropdown.Item>
+                                            <Dropdown.Item eventKey="">All</Dropdown.Item>
                                         </DropdownButton>
                                     </Col>
                                 </Form.Group>
@@ -63,19 +78,20 @@ class Filters extends Component {
                                     </Form.Label>
                                     <Col sm={10}>
                                         <DropdownButton
-                                            title='Status'
+                                            title={startCase(status) || 'Status'}
+                                            onSelect={this.onStatusChange}
                                             variant='primary'>
                                             {this.props.filters.statuses.map((status, index) => {
                                                 return (
                                                     <Dropdown.Item
-                                                        key={status}
-                                                        eventKey={index}>
+                                                        key={index}
+                                                        eventKey={status}>
                                                         {startCase(status)}
                                                     </Dropdown.Item>
                                                 )
                                             })}
                                             <Dropdown.Divider/>
-                                            <Dropdown.Item eventKey="4">All</Dropdown.Item>
+                                            <Dropdown.Item eventKey="">All</Dropdown.Item>
                                         </DropdownButton>
                                     </Col>
                                 </Form.Group>

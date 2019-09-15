@@ -36,9 +36,17 @@ class ApplicationsList extends Component {
         this.props.setFilteringParams(filteringPrams)
     };
 
-    render() {
-
+    getFilteredApplications = () => {
         const {applications} = this.props.applications;
+        const {filteringParams} = this.props.filters;
+        const orderOrientations = Object.keys(filteringParams).map((key) => filteringParams[key]);
+        return _orderBy(applications, Object.keys(filteringParams), orderOrientations)
+            .filter((item) => item.name.includes(filteringParams.searchQuery || ''))
+            .filter((item) => item.position_applied.includes(filteringParams.position_applied || ''))
+            .filter((item) => item.status.includes(filteringParams.status || ''))
+    };
+
+    render() {
         const {filteringParams} = this.props.filters;
 
         return (
@@ -61,7 +69,7 @@ class ApplicationsList extends Component {
                                 filteringFields={filteringFields}
                             />
                             <tbody>
-                            {_orderBy(applications, Object.keys(filteringParams), Object.keys(filteringParams).map((key) => filteringParams[key])).map((application) =>
+                            {this.getFilteredApplications().map((application) =>
                                 <TableRow
                                     key={application.id}
                                     row={application}

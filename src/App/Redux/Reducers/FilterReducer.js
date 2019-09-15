@@ -9,6 +9,7 @@ const initialState = {
     statuses: [],
     positions: [],
     filteringParams: {},
+    searchQuery: ''
 };
 
 export default function (state = initialState, action) {
@@ -34,7 +35,8 @@ export default function (state = initialState, action) {
         case RESET_FILTERING_PARAMS: {
             return {
                 ...state,
-                filteringParams: {}
+                filteringParams: {},
+                searchQuery: ''
             }
         }
         default:

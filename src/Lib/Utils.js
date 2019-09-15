@@ -14,10 +14,6 @@ export const optionsBy = (array, attr) => {
     return options;
 };
 
-export const filterBy = (array, attr, target) => {
-    array.filter((element) => element[attr] === target)
-};
-
 export const isEmpty = (obj) => {
     if (typeof obj == 'number') return false;
     else if (typeof obj == 'string') return obj.length === 0;

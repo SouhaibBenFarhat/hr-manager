@@ -22,7 +22,6 @@ class UrlWatcher extends Component {
     render() {
         return <></>
     }
-
 }
 
 const mapStateToProps = ({filters}) => ({

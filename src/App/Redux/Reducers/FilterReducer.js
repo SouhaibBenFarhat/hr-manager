@@ -1,15 +1,14 @@
 import {
-    SET_ORDER_BY,
-    SET_POSITIONS,
     SET_STATUSES,
-    SET_FILTER_BY, RESET_FILTER_BY, RESET_ORDER_BY
+    SET_POSITIONS,
+    SET_FILTERING_PARAMS,
+    RESET_FILTERING_PARAMS
 } from "../ActionTypes";
 
 const initialState = {
     statuses: [],
     positions: [],
-    filterBy: [],
-    orderBy: {}
+    filteringParams: {},
 };
 
 export default function (state = initialState, action) {
@@ -26,28 +25,16 @@ export default function (state = initialState, action) {
                 positions: [...action.positions]
             };
         }
-        case SET_FILTER_BY: {
+        case SET_FILTERING_PARAMS: {
             return {
                 ...state,
-                filterBy: [...state.filterBy, action.filterBy]
+                filteringParams: Object.assign({}, state.filteringParams, action.filteringParams)
             }
         }
-        case SET_ORDER_BY: {
+        case RESET_FILTERING_PARAMS: {
             return {
                 ...state,
-                orderBy: Object.assign({}, state.orderBy, action.orderBy)
-            }
-        }
-        case RESET_FILTER_BY: {
-            return {
-                ...state,
-                filterBy: []
-            }
-        }
-        case RESET_ORDER_BY: {
-            return {
-                ...state,
-                orderBy: {}
+                filteringParams: {}
             }
         }
         default:

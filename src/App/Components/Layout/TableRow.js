@@ -14,11 +14,21 @@ function TableRow({row}) {
                     {row.email}
                 </Button>
             </td>
-            <td className='text-nowrap'>{dateToAge(row.birth_date)}</td>
-            <td className='text-nowrap'>{row.year_of_experience}</td>
-            <td className='text-nowrap'>{row.application_date}</td>
-            <td className='text-nowrap'>{row.position_applied}</td>
-            <td className='text-nowrap'><StatusLabel status={row.status}/></td>
+            <td className='text-nowrap'>
+                {dateToAge(row.birth_date)}
+            </td>
+            <td className='text-nowrap'>
+                {row.year_of_experience}
+            </td>
+            <td className='text-nowrap'>
+                {row.application_date}
+            </td>
+            <td className='text-nowrap'>
+                {row.position_applied}
+            </td>
+            <td className='text-nowrap'>
+                <StatusLabel status={row.status}/>
+            </td>
         </tr>
     )
 }

@@ -4,73 +4,68 @@ import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import {connect} from 'react-redux'
 import {fetchApplications} from "../Redux/Actions/ApplicationActions";
-import {setOrderBy, resetFilterBy, resetOrderBy} from "../Redux/Actions/FilterActions";
+import {setFilteringParams, resetFilteringParams} from "../Redux/Actions/FilterActions";
 import TableRow from "./Layout/TableRow";
 import TableHeader from "./Layout/TableHeader";
 import Button from "react-bootstrap/Button";
 import {isEmpty} from "../../Lib/Utils";
 import _orderBy from 'lodash/orderBy'
 
-const orderByFields = {
+const filteringFields = {
     name: 'name',
     email: 'email',
-    age: 'birth_date',
-    years_of_experience: 'years_of_experience',
+    birth_date: 'age',
+    year_of_experience: 'year_of_experience',
     application_date: 'application_date',
-
-};
-
-const filterByFields = {
-    position: 'position_applied',
+    position_applied: 'position',
     status: 'status'
 };
 
 class ApplicationsList extends Component {
 
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         this.props.fetchApplications()
     }
 
-    resetClick = () => {
-        this.props.resetOrderBy();
-        this.props.resetFilterBy();
+    resetFilters = () => {
+        this.props.resetFilteringParams();
     };
 
+    setFilteringParams = (filteringPrams) => {
+        this.props.setFilteringParams(filteringPrams)
+    };
 
     render() {
 
         const {applications} = this.props.applications;
-        const {orderBy, filterBy} = this.props.filters;
+        const {filteringParams} = this.props.filters;
 
         return (
             <>
-                {(!isEmpty(orderBy) || !isEmpty(filterBy)) &&
                 <Row>
                     <Col md={12}>
-                        <Button onClick={this.resetClick} className='float-right my-2'>
-                            Reset
+                        <Button disabled={(isEmpty(filteringParams))}
+                                onClick={this.resetFilters}
+                                className='float-right my-2'>
+                            Reset Filters
                         </Button>
                     </Col>
-                </Row>}
+                </Row>
                 <Row>
                     <Col md={12}>
                         <Table responsive>
                             <TableHeader
-                                selectedOptions={orderBy}
-                                orderBy={(orderParams) => this.props.setOrderBy(orderParams)}
-                                orderByFields={orderByFields}
-                                filterByFields={filterByFields}/>
+                                selectedOptions={filteringParams}
+                                setFilteringParams={(filteringPrams) => this.setFilteringParams(filteringPrams)}
+                                filteringFields={filteringFields}
+                            />
                             <tbody>
-                            {_orderBy(applications, Object.keys(orderBy), Object.keys(orderBy).map((key) => orderBy[key])).map((application) =>
+                            {_orderBy(applications, Object.keys(filteringParams), Object.keys(filteringParams).map((key) => filteringParams[key])).map((application) =>
                                 <TableRow
                                     key={application.id}
                                     row={application}
-                                    orderByFileds={orderByFields}
-                                    filterByFields={filterByFields}/>)}
+                                />)}
                             </tbody>
                         </Table>
                     </Col>
@@ -85,4 +80,4 @@ const mapStateToProps = ({applications, filters}) => {
 };
 
 
-export default connect(mapStateToProps, {fetchApplications, setOrderBy, resetFilterBy, resetOrderBy})(ApplicationsList)
+export default connect(mapStateToProps, {fetchApplications, setFilteringParams, resetFilteringParams})(ApplicationsList)

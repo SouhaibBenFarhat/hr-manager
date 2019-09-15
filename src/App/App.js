@@ -22,10 +22,8 @@ function App() {
                             <Route
                                 exact
                                 path="/"
-                                component={ApplicationsList}
-                            />
+                                component={ApplicationsList}/>
                         </Switch>
-
                     </Container>
                 </BrowserRouter>
             </div>

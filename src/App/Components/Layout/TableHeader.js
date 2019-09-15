@@ -5,13 +5,13 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faArrowUp} from '@fortawesome/free-solid-svg-icons'
 import {faArrowDown} from '@fortawesome/free-solid-svg-icons'
 
-export default function TableHeader({orderBy, orderByFields, filterByFields, selectedOptions}) {
+export default function TableHeader({setFilteringParams, filteringFields, selectedOptions}) {
 
     const navItemClick = (event, key) => {
         const currentOrientation = event.currentTarget.getAttribute('orientation');
         const newOrientation = currentOrientation === 'asc' ? 'desc' : 'asc';
         event.currentTarget.setAttribute('orientation', currentOrientation === 'asc' ? 'desc' : 'asc');
-        orderBy({[key]: newOrientation});
+        setFilteringParams({[key]: newOrientation});
     };
 
     const isSelected = (key) => {
@@ -27,24 +27,16 @@ export default function TableHeader({orderBy, orderByFields, filterByFields, sel
     return (
         <thead>
         <tr>
-            {Object.keys(orderByFields).map((key) => (
+            {Object.keys(filteringFields).map((key) => (
                 <th key={key}
                     orientation={selectedOptions[key] || 'desc'}
                     className={`text-nowrap ${isSelected(key) ? 'font-weight-bold' : 'font-weight-normal'}`}
                     onClick={(event) => navItemClick(event, key)}>
                     <Nav.Item>
                         <Nav.Link>
-                            {startCase(key)}
+                            {startCase(filteringFields[key])}
                             {isSelected(key) && <FontAwesomeIcon style={{marginLeft: 10}} icon={getIcon(key)}/>}
                         </Nav.Link>
-                    </Nav.Item>
-                </th>
-            ))}
-
-            {Object.keys(filterByFields).map((key) => (
-                <th key={key} className='text-nowrap font-weight-normal'>
-                    <Nav.Item>
-                        <Nav.Link>{startCase(key)}</Nav.Link>
                     </Nav.Item>
                 </th>
             ))}

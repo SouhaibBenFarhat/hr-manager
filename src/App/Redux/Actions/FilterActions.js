@@ -1,7 +1,8 @@
 import {
     SET_POSITIONS,
     SET_STATUSES,
-    SET_FILTER_BY, SET_ORDER_BY, RESET_ORDER_BY, RESET_FILTER_BY
+    SET_FILTERING_PARAMS,
+    RESET_FILTERING_PARAMS
 } from "../ActionTypes";
 
 export const setStatuses = (statuses) => ({
@@ -14,21 +15,12 @@ export const setPositions = (positions) => ({
     positions
 });
 
-export const setFilterBy = (filterBy) => ({
-    type: SET_FILTER_BY,
-    filterBy
+export const setFilteringParams = (filteringParams) => ({
+    type: SET_FILTERING_PARAMS,
+    filteringParams
 });
 
-export const setOrderBy = (orderBy) => ({
-    type: SET_ORDER_BY,
-    orderBy
-});
-
-export const resetOrderBy = () => ({
-    type: RESET_ORDER_BY
-});
-
-export const resetFilterBy = () => ({
-    type: RESET_FILTER_BY
+export const resetFilteringParams = () => ({
+    type: RESET_FILTERING_PARAMS
 });
 

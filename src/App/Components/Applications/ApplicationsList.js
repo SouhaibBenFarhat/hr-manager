@@ -8,7 +8,6 @@ import {setFilteringParams, resetFilteringParams} from "../../Redux/Actions/Filt
 import TableRow from "./TableRow";
 import TableHeader from "./TableHeader";
 import Button from "react-bootstrap/Button";
-import ProgressBar from "react-bootstrap/ProgressBar";
 import {isEmpty} from "../../../Lib/Utils";
 import _orderBy from 'lodash/orderBy'
 import {filteringFields} from "../../../Lib/Keys";

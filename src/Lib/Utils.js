@@ -32,6 +32,7 @@ export const removeKeysWithFalsyValues = (obj) => {
     return _.pickBy(obj, _.identity);
 };
 
+//reducing the length of strings longer than (length) and appending ... (dots)
 export const trimString = (string, length) => {
     return string.length > length ? string.substring(0, length) + '...' : string;
 };

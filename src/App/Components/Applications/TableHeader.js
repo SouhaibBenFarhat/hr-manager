@@ -4,8 +4,6 @@ import {startCase} from 'lodash'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome/index'
 import {faArrowUp} from '@fortawesome/free-solid-svg-icons/index'
 import {faArrowDown} from '@fortawesome/free-solid-svg-icons/index'
-import ProgressBar from "react-bootstrap/ProgressBar";
-import Table from "react-bootstrap/Table";
 
 export default function TableHeader({setFilteringParams, filteringFields, selectedOptions}) {
 
@@ -24,7 +22,6 @@ export default function TableHeader({setFilteringParams, filteringFields, select
         if (selectedOptions[key] === 'desc') return faArrowDown;
         if (selectedOptions[key] === 'asc') return faArrowUp;
     };
-
 
     return (
         <thead>

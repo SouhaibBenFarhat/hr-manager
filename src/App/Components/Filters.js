@@ -11,7 +11,6 @@ import {setFilteringParams} from "../Redux/Actions/FilterActions";
 
 class Filters extends Component {
 
-
     onNameChange = (event) => {
         this.props.setFilteringParams({searchQuery: event.target.value})
     };

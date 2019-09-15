@@ -54,7 +54,7 @@ class Filters extends Component {
                                     <Col sm={10}>
                                         <DropdownButton
                                             onSelect={this.onPositionChange}
-                                            title={startCase(positions[position_applied]) || 'Position'}
+                                            title={startCase(positions.filter(item => item === position_applied)[0]) || 'Position'}
                                             variant='primary'>
                                             {positions.map((position, index) => (
                                                     <Dropdown.Item
@@ -75,7 +75,7 @@ class Filters extends Component {
                                     </Form.Label>
                                     <Col sm={10}>
                                         <DropdownButton
-                                            title={startCase(statuses[status]) || 'Status'}
+                                            title={startCase(statuses.filter(item => item === status)[0]) || 'Status'}
                                             onSelect={this.onStatusChange}
                                             variant='primary'>
                                             {statuses.map((status, index) => (

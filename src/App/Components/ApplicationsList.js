@@ -37,8 +37,8 @@ class ApplicationsList extends Component {
     };
 
     getFilteredApplications = () => {
-        const {applications} = this.props.applications;
-        const {filteringParams} = this.props.filters;
+        const {applications} = this.props;
+        const {filteringParams} = this.props;
         const orderOrientations = Object.keys(filteringParams).map((key) => filteringParams[key]);
         return _orderBy(applications, Object.keys(filteringParams), orderOrientations)
             .filter((item) => item.name.includes(filteringParams.searchQuery || ''))
@@ -47,7 +47,7 @@ class ApplicationsList extends Component {
     };
 
     render() {
-        const {filteringParams} = this.props.filters;
+        const {filteringParams} = this.props;
 
         return (
             <>
@@ -84,7 +84,10 @@ class ApplicationsList extends Component {
 }
 
 const mapStateToProps = ({applications, filters}) => {
-    return {applications, filters}
+    return {
+        applications: applications.applications,
+        filteringParams: filters.filteringParams
+    }
 };
 
 

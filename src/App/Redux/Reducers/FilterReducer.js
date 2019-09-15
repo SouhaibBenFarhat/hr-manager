@@ -4,6 +4,7 @@ import {
     SET_FILTERING_PARAMS,
     RESET_FILTERING_PARAMS
 } from "../ActionTypes";
+import {removeKeysWithFalsyValues} from "../../../Lib/Utils";
 
 const initialState = {
     statuses: [],
@@ -29,7 +30,7 @@ export default function (state = initialState, action) {
         case SET_FILTERING_PARAMS: {
             return {
                 ...state,
-                filteringParams: Object.assign({}, state.filteringParams, action.filteringParams)
+                filteringParams: removeKeysWithFalsyValues(Object.assign({}, state.filteringParams, action.filteringParams))
             }
         }
         case RESET_FILTERING_PARAMS: {

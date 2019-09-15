@@ -1,15 +1,12 @@
 import {LOAD_APPLICATIONS} from "../ActionTypes";
 import {LOAD_APPLICATIONS_SUCCESS} from "../ActionTypes";
 import {LOAD_APPLICATIONS_FAILURE} from "../ActionTypes";
-import {optionsBy} from "../../../Lib/Utils";
 
 const initialState = {
     loading: false,
     error: null,
     errorPayload: null,
     applications: [],
-    positions: [],
-    statuses: [],
 };
 
 export default function (state = initialState, action) {
@@ -29,8 +26,6 @@ export default function (state = initialState, action) {
                 error: false,
                 errorPayload: null,
                 applications: [...action.applications],
-                positions: optionsBy(action.applications, 'position_applied'),
-                statuses: optionsBy(action.applications, 'status')
             };
         }
         case LOAD_APPLICATIONS_FAILURE: {

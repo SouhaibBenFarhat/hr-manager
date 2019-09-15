@@ -1,4 +1,5 @@
 import moment from 'moment'
+import _ from 'lodash';
 
 export const dateToAge = (birthday) => {
     return moment().diff(birthday, 'years');
@@ -21,4 +22,8 @@ export const isEmpty = (obj) => {
     else if (typeof obj == 'object') return obj === null || Object.keys(obj).length === 0;
     else if (typeof obj == 'boolean') return false;
     else return !obj;
+};
+
+export const removeKeysWithFalsyValues = (obj) => {
+    return _.pickBy(obj, _.identity);
 };

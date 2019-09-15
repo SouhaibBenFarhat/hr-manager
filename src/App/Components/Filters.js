@@ -26,9 +26,8 @@ class Filters extends Component {
     };
 
     render() {
-        const {searchQuery} = this.props.filters.filteringParams;
-        const {position_applied} = this.props.filters.filteringParams;
-        const {status} = this.props.filters.filteringParams;
+        const {statuses, positions} = this.props;
+        const {searchQuery, position_applied, status} = this.props.filteringParams;
 
         return (
             <>
@@ -58,15 +57,14 @@ class Filters extends Component {
                                             onSelect={this.onPositionChange}
                                             title={startCase(position_applied) || 'Position'}
                                             variant='primary'>
-                                            {this.props.filters.positions.map((position, index) => {
-                                                return (
+                                            {positions.map((position, index) => (
                                                     <Dropdown.Item
                                                         key={index}
                                                         eventKey={position}>
                                                         {position}
                                                     </Dropdown.Item>
                                                 )
-                                            })}
+                                            )}
                                             <Dropdown.Divider/>
                                             <Dropdown.Item eventKey="">All</Dropdown.Item>
                                         </DropdownButton>
@@ -81,15 +79,14 @@ class Filters extends Component {
                                             title={startCase(status) || 'Status'}
                                             onSelect={this.onStatusChange}
                                             variant='primary'>
-                                            {this.props.filters.statuses.map((status, index) => {
-                                                return (
+                                            {statuses.map((status, index) => (
                                                     <Dropdown.Item
                                                         key={index}
                                                         eventKey={status}>
                                                         {startCase(status)}
                                                     </Dropdown.Item>
                                                 )
-                                            })}
+                                            )}
                                             <Dropdown.Divider/>
                                             <Dropdown.Item eventKey="">All</Dropdown.Item>
                                         </DropdownButton>
@@ -106,7 +103,11 @@ class Filters extends Component {
 }
 
 const mapStateToProps = ({filters}) => {
-    return {filters}
+    return {
+        statuses: filters.statuses,
+        positions: filters.positions,
+        filteringParams: filters.filteringParams
+    }
 };
 
 export default connect(mapStateToProps, {setFilteringParams})(Filters)

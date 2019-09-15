@@ -8,9 +8,12 @@ import {setFilteringParams, resetFilteringParams} from "../../Redux/Actions/Filt
 import TableRow from "./TableRow";
 import TableHeader from "./TableHeader";
 import Button from "react-bootstrap/Button";
+import ProgressBar from "react-bootstrap/ProgressBar";
 import {isEmpty} from "../../../Lib/Utils";
 import _orderBy from 'lodash/orderBy'
 import {filteringFields} from "../../../Lib/Keys";
+import Alert from 'react-bootstrap/Alert'
+import LoadingBar from "../Layout/LoadingBar";
 
 class ApplicationsList extends Component {
 
@@ -47,15 +50,22 @@ class ApplicationsList extends Component {
     };
 
     render() {
-        const {filteringParams} = this.props;
+        const {filteringParams, loading, error, errorPayload} = this.props;
         const filteredApplications = this.getFilteredApplications();
         return (
             <>
                 <Row>
                     <Col md={6}>
-                        <p>
-                            Showing {filteredApplications.length} of {this.props.applications.length} application
-                        </p>
+                        {loading ?
+                            <p>
+                                Loading data. Please wait...
+                            </p>
+                            :
+                            <p>
+                                Showing {filteredApplications.length} of {this.props.applications.length} application
+                            </p>
+                        }
+
                     </Col>
                     <Col md={6}>
                         <Button disabled={(isEmpty(filteringParams))}
@@ -67,7 +77,10 @@ class ApplicationsList extends Component {
                 </Row>
                 <Row>
                     <Col md={12}>
-                        <Table striped responsive>
+                        <LoadingBar loading={loading}/>
+                    </Col>
+                    <Col md={12}>
+                        <Table striped size="sm">
                             <TableHeader
                                 selectedOptions={filteringParams}
                                 setFilteringParams={(filteringPrams) => this.setFilteringParams(filteringPrams)}
@@ -84,6 +97,17 @@ class ApplicationsList extends Component {
                         </Table>
                     </Col>
                 </Row>
+                {error &&
+                <Row>
+                    <Col md={6}>
+                        <Alert variant='danger'>
+                            {errorPayload.message}
+                            <br/>
+                            <Alert.Link href="" onClick={this.props.fetchApplications}>Try again</Alert.Link>
+                        </Alert>
+                    </Col>
+                </Row>
+                }
             </>
         )
     }
@@ -91,6 +115,9 @@ class ApplicationsList extends Component {
 
 const mapStateToProps = ({applications, filters}) => {
     return {
+        errorPayload: applications.errorPayload,
+        error: applications.error,
+        loading: applications.loading,
         applications: applications.applications,
         filteringParams: filters.filteringParams
     }

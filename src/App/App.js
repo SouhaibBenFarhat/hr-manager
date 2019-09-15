@@ -15,7 +15,7 @@ function App() {
             <div>
                 <BrowserRouter>
                     <Navigation/>
-                    <Container fluid className='mt-5'>
+                    <Container className='mt-5'>
                         <Filters/>
                         <UrlWatcher/>
                         <Switch>

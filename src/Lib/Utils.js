@@ -1,6 +1,5 @@
 import moment from 'moment'
 import _ from 'lodash';
-import _orderBy from "lodash/orderBy";
 
 // Use momentJS to convert birthday to age
 export const dateToAge = (birthday) => {
@@ -31,4 +30,8 @@ export const isEmpty = (obj) => {
 // removing  keys with falsy values from object, Falsy values are [0, '', false, null, undefined, Nan]
 export const removeKeysWithFalsyValues = (obj) => {
     return _.pickBy(obj, _.identity);
+};
+
+export const trimString = (string, length) => {
+    return string.length > length ? string.substring(0, length) + '...' : string;
 };

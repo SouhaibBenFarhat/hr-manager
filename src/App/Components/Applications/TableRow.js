@@ -1,5 +1,5 @@
 import React from 'react'
-import {dateToAge} from "../../../Lib/Utils";
+import {dateToAge, trimString} from "../../../Lib/Utils";
 import Button from 'react-bootstrap/Button'
 import {applicationStatus} from "../../../Lib/Keys";
 
@@ -11,7 +11,7 @@ function TableRow({row, setFilteringParams}) {
             </td>
             <td className='text-nowrap'>
                 <Button variant="outline-primary">
-                    {row.email}
+                    {trimString(row.email, 20)}
                 </Button>
             </td>
             <td className='text-nowrap'>

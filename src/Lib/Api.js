@@ -28,14 +28,15 @@ export default class Api {
 
 
     static getRequest(url) {
-        return axios.get(url, this.headers()).then((response) => {
-            return Api.returnWithFallback(response)
-        }).catch((error) => {
-            return Api.returnWithFallback(error.response);
-        });
-    }
-
-    static returnWithFallback(res) {
-        return res ? res : errorMessage
+        return new Promise((resolve, reject) => {
+            axios.get(url, this.headers()).then((response) => {
+                if (response.data.hasOwnProperty('error')) {
+                    reject(response.data.error)
+                }
+                resolve(response.data)
+            }).catch((error) => {
+                reject(error);
+            });
+        })
     }
 }

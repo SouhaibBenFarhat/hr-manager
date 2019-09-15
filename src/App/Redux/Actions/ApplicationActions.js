@@ -4,15 +4,19 @@ import {
     LOAD_APPLICATIONS_SUCCESS
 } from "../ActionTypes";
 import Api from "../../../Lib/Api";
-import * as candidates from '../candidates'
 import {setPositions, setStatuses} from "./FilterActions";
 import {optionsBy} from "../../../Lib/Utils";
 
 export const fetchApplications = () => {
     return dispatch => {
-        dispatch(loadApplicationsSuccess(candidates.data));
-        dispatch(setStatuses(optionsBy(candidates.data, 'status')));
-        dispatch(setPositions(optionsBy(candidates.data, 'position_applied')));
+        dispatch(loadApplications());
+        Api.get('/candidates').then((response) => {
+            dispatch(loadApplicationsSuccess(response.data));
+            dispatch(setStatuses(optionsBy(response.data, 'status')));
+            dispatch(setPositions(optionsBy(response.data, 'position_applied')));
+        }).catch((error) => {
+            dispatch(loadApplicationsFailure(error))
+        })
     }
 };
 
@@ -29,12 +33,3 @@ export const loadApplicationsFailure = (errorPayload) => ({
     type: LOAD_APPLICATIONS_FAILURE,
     errorPayload
 });
-
-
-
-// dispatch(loadApplications());
-// Api.get('/candidates').then((response) => {
-//     dispatch(loadApplicationsSuccess(response.data['data']))
-// }).catch((error) => {
-//     dispatch(loadApplicationsFailure(error))
-// })

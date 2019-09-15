@@ -32,7 +32,7 @@ class Filters extends Component {
         return (
             <>
                 <Row>
-                    <Col md={6}>
+                    <Col md={8}>
                         <Jumbotron>
                             <h4>Filters</h4>
                             <Form>

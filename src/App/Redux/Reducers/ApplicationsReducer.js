@@ -4,7 +4,7 @@ import {LOAD_APPLICATIONS_FAILURE} from "../ActionTypes";
 
 const initialState = {
     loading: false,
-    error: null,
+    error: false,
     errorPayload: null,
     applications: [],
 };

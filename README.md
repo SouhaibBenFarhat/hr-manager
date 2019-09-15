@@ -58,7 +58,7 @@ const initialState = {
 action creators are under `src/App/Redux/Actions`
 
 ### `Important components`
-`UrlWatcher.js`: This component is under `src/App/Components/UrlWatcher.js`
+`UrlWatcher.js`: This component is under [`src/App/Components/UrlWatcher.js`](https://github.com/SouhaibBenFarhat/hr-manager/blob/master/src/App/Components/UrlWatcher.js)
 It's responsible for binding the data between the filtering state and the url,
 - Read the url and save to state.<br>
 - Read the state and write the url.
